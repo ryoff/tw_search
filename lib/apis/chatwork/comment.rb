@@ -7,8 +7,7 @@ module Apis
       end
 
       # comment classは、ただ渡された引数を設定するだけなので何もしていないが、
-      # 本来はこのmethod内で、@bodyにメッセージを埋め込む処理を書く
-      # ex) KPIデータ取得など
+      # 別用途のclass作成時はこのmethod内で、@bodyにメッセージを埋め込む処理を書く予定
       def set_body(body = nil)
         @body = body
       end
