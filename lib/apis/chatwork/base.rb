@@ -26,7 +26,7 @@ module Apis
       def send_comment
         return unless @body
 
-        @room_id = CHATWORK_DEV_ROOM_ID unless ENV['RAILS_ENV'] === 'production'
+        @room_id = CHATWORK_DEV_ROOM_ID unless @room_id
         ChatWork.api_key = CHATWORK_API_TOKEN
         ChatWork::Message.create(room_id: @room_id, body: @body)
       end
