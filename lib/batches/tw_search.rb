@@ -9,11 +9,11 @@ module Batches
       def run(word = '', options = {})
         client = generate_twitter_client
 
-        since_id = Tweet.where(search_word: word).last.try(:since_id) || 0
+        since_id = Tweet.last_since_id(word)
 
         client.search("#{word} -rt", lang: "ja", result_type: 'recent', since_id: since_id).take(10).reverse.collect do |tweet|
           # すでにdbにあればskip
-          next if Tweet.where(search_word: word).find_by(since_id: tweet.id)
+          next if Tweet.find_by_word_and_since_id(word, tweet.id)
 
           # 別tweetだけど、全く同じ本文なら、skip (非公式RTなど、大量に同じtweetでチャットが溢れる対策)
           # urlが含まれると、短縮urlが毎回ユニークになってしまうので、先頭〜20文字で比較している
