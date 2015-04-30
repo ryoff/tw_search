@@ -19,14 +19,14 @@ module Batches
           # urlが含まれると、短縮urlが毎回ユニークになってしまうので、先頭〜20文字で比較している
           next if Tweet.where(search_word: word).where("full_text like '#{tweet.full_text[0,20]}%'").size > 0
 
-          Tweet.new({
+          Tweet.new(
             since_id:    tweet.id,
             search_word: word,
             name:        tweet.user.screen_name,
             full_text:   tweet.full_text,
             uri:         tweet.uri.to_s,
             tweet_time:  tweet.created_at
-          }).save!
+          ).save!
 
           comment = "[info][title]検索ワード【#{word}】[/title]#{tweet.full_text} [hr]@#{tweet.user.screen_name}\n#{tweet.uri.to_s} / #{tweet.created_at}[/info]"
 
