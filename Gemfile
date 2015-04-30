@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.4'
 gem 'sqlite3'
+gem 'everywhere'
 group :test, :development do
   gem 'rspec-rails'
   gem 'guard-rspec'
