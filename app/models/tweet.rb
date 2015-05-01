@@ -11,4 +11,9 @@ class Tweet < ActiveRecord::Base
   def self.find_by_word_and_since_id(word, since_id)
     where(search_word: word).find_by(since_id: since_id)
   end
+
+  def self.has_duplicate_tweet?(word, full_text)
+    where(search_word: word).where.like(full_text: "#{full_text}%").size > 0
+  end
 end
+

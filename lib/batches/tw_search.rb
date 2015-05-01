@@ -17,7 +17,7 @@ module Batches
 
           # 別tweetだけど、全く同じ本文なら、skip (非公式RTなど、大量に同じtweetでチャットが溢れる対策)
           # urlが含まれると、短縮urlが毎回ユニークになってしまうので、先頭〜20文字で比較している
-          next if Tweet.where(search_word: word).where.like(full_text: "#{tweet.full_text[0,20]}%").size > 0
+          next if Tweet.has_duplicate_tweet?(word, tweet.full_text[0,20])
 
           Tweet.new(
             since_id:    tweet.id,
