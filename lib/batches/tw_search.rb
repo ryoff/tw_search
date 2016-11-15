@@ -36,7 +36,7 @@ module Batches
           comment = "[info][title]検索ワード【#{word}】[/title]#{tweet.full_text} [hr]@#{tweet.user.screen_name}\n#{tweet.uri.to_s} / #{tweet.created_at}[/info]"
 
           chatwork = Apis::Chatwork::Comment.new(options[:room_id])
-          chatwork.comment(comment)
+          chatwork.comment(replace_not_allowed_words(comment))
         end
       end
 
@@ -47,6 +47,11 @@ module Batches
         puts "通常の検索             : rails runner -e production \"Batches::TwSearch.execute('search_word')\""
         puts "Chatworkの部屋idを指定 : rails runner -e production \"Batches::TwSearch.execute('search_word', { room_id: xxx })\""
         exit
+      end
+
+      def replace_not_allowed_words(comment)
+        # chatworkがunicodeに対応してないっぽいので、消す。
+        comment.encode('SJIS', 'UTF-8', invalid: :replace, undef: :replace, replace: '?').encode('UTF-8')
       end
     end
   end
