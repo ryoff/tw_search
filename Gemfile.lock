@@ -40,6 +40,8 @@ GEM
     dotenv (1.0.2)
     equalizer (0.0.9)
     erubis (2.7.0)
+    everywhere (2.0.0)
+      activerecord
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
@@ -170,6 +172,7 @@ PLATFORMS
 DEPENDENCIES
   chatwork
   dotenv
+  everywhere
   guard-rspec
   pry
   pry-nav

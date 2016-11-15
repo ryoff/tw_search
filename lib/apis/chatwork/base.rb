@@ -20,7 +20,7 @@ module Apis
       end
 
       def set_body
-        abort("please override me")
+        fail NotImplementedError.new("You must implement #{self.class}##{__method__}")
       end
 
       def send_comment
